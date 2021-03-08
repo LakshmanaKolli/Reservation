@@ -46,5 +46,20 @@ public class ReservationServiceTest extends AbstractBaseTest {
 				() -> reservationService.getReservationDetails(0));
 		assertEquals("Reservation details not found for reservationId: 0", ex.getMessage());
 	}
+	
+	@Test
+	void updateReservationDetails() throws Exception{
+		Reservation response = reservationMapper.toReservation(getReservationDTOdetails());
+		Mockito.when(reservationRepository.findById(1)).thenReturn(Optional.of(response));
+		Mockito.when(reservationRepository.save(response)).thenReturn(response);
+		assertEquals("Reservation details updated successfully", reservationService.updateReservationDetails(getReservationDTOdetails(), 1).getMessage());
+	}
+	
+	@Test
+	void updateReservationDetails_notFoundException() throws Exception {
+		Exception ex = assertThrows(ReservationNotFoundException.class,
+				() -> reservationService.updateReservationDetails(getReservationDTOdetails(), 0));
+		assertEquals("Reservation details not found for reservationId: 0", ex.getMessage());
+	}
 
 }

@@ -9,22 +9,31 @@ import com.epam.hotel.reservation.dto.ReservationDTO;
 import com.epam.hotel.reservation.exception.ReservationException;
 import com.epam.hotel.reservation.exception.ReservationNotFoundException;
 import com.epam.hotel.reservation.response.SaveReservationResponse;
+import com.epam.hotel.reservation.response.UpdateReservationResponse;
 import com.epam.hotel.reservation.service.ReservationService;
 
 @RestController
-public class ReservationControllerImpl implements ReservationController{
-	
+public class ReservationControllerImpl implements ReservationController {
+
 	@Autowired
 	private ReservationService service;
-	
+
 	@Override
-	public ResponseEntity<SaveReservationResponse> saveReservationDetails(ReservationDTO reservationDTO) throws ReservationException {
+	public ResponseEntity<SaveReservationResponse> saveReservationDetails(ReservationDTO reservationDTO)
+			throws ReservationException {
 		return new ResponseEntity<>(service.saveReservationDetails(reservationDTO), HttpStatus.CREATED);
 	}
 
 	@Override
-	public ResponseEntity<ReservationDTO> getReservationDetails(Integer reservationId) throws ReservationNotFoundException{
+	public ResponseEntity<ReservationDTO> getReservationDetails(Integer reservationId)
+			throws ReservationNotFoundException {
 		return new ResponseEntity<>(service.getReservationDetails(reservationId), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<UpdateReservationResponse> updateReservationDetails(ReservationDTO reservationDTO,
+			Integer reservationId) throws ReservationNotFoundException {
+		return new ResponseEntity<>(service.updateReservationDetails(reservationDTO, reservationId), HttpStatus.OK);
 	}
 
 }

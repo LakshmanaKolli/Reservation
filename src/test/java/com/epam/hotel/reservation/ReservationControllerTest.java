@@ -2,6 +2,7 @@ package com.epam.hotel.reservation;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.epam.hotel.reservation.dto.ReservationDTO;
 import com.epam.hotel.reservation.response.SaveReservationResponse;
+import com.epam.hotel.reservation.response.UpdateReservationResponse;
 import com.epam.hotel.reservation.service.ReservationService;
 
 @ExtendWith(SpringExtension.class)
@@ -39,9 +41,17 @@ public class ReservationControllerTest extends AbstractBaseTest {
 	}
 
 	@Test
-	void getReservationDetails() throws Exception{
+	void getReservationDetails() throws Exception {
 		Mockito.when(reservationService.getReservationDetails(1)).thenReturn(getReservationDTOdetails());
 		mockMvc.perform(get("/reservations/api/v1/1")).andExpect(status().isOk());
+	}
+
+	@Test
+	void updateReservationDetails() throws Exception {
+		UpdateReservationResponse response = new UpdateReservationResponse();
+		Mockito.when(reservationService.updateReservationDetails(getReservationDTOdetails(),1)).thenReturn(response);
+		mockMvc.perform(put("/reservations/api/v1/details/1").contentType(MediaType.APPLICATION_JSON)
+				.content(mapper.writeValueAsBytes(getReservationDTOdetails()))).andExpect(status().isOk());
 	}
 
 }
