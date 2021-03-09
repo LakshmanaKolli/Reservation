@@ -10,6 +10,7 @@ import com.epam.hotel.reservation.domain.Reservation;
 import com.epam.hotel.reservation.dto.ReservationDTO;
 import com.epam.hotel.reservation.exception.ReservationException;
 import com.epam.hotel.reservation.exception.ReservationNotFoundException;
+import com.epam.hotel.reservation.feign.HotelFeign;
 import com.epam.hotel.reservation.mapper.ReservationMapper;
 import com.epam.hotel.reservation.repository.ReservationRepository;
 import com.epam.hotel.reservation.response.SaveReservationResponse;
@@ -23,6 +24,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	ReservationMapper mapper;
+	
+	@Autowired
+	HotelFeign hotelFeign;
 
 	@Override
 	public SaveReservationResponse saveReservationDetails(ReservationDTO reservationDTO) throws ReservationException {
@@ -38,6 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public ReservationDTO getReservationDetails(Integer reservationID) throws ReservationNotFoundException {
+		System.out.println(hotelFeign.getHotelDetails(2).toString());
 		Optional<Reservation> response = reservationRepository.findById(reservationID);
 		if (response.isEmpty()) {
 			throw new ReservationNotFoundException(
