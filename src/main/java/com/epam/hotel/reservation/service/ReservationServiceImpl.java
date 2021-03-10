@@ -3,6 +3,8 @@ package com.epam.hotel.reservation.service;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ import com.epam.hotel.reservation.response.UpdateReservationResponse;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
-
+	
 	@Autowired
 	private ReservationRepository reservationRepository;
 
