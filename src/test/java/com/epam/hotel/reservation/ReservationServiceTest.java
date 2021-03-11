@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.epam.hotel.reservation.domain.Reservation;
 import com.epam.hotel.reservation.exception.ReservationNotFoundException;
+import com.epam.hotel.reservation.feign.HotelFeign;
 import com.epam.hotel.reservation.repository.ReservationRepository;
 import com.epam.hotel.reservation.service.ReservationService;
 
@@ -24,6 +25,9 @@ public class ReservationServiceTest extends AbstractBaseTest {
 
 	@Autowired
 	ReservationService reservationService;
+	
+	@MockBean
+	HotelFeign hotelFeign;
 
 	@Test
 	void saveReservationDetails() throws Exception {
