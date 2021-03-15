@@ -49,9 +49,9 @@ public class ReservationServiceImpl implements ReservationService {
 			throw new ReservationNotFoundException(
 					String.format("Reservation details not found for reservationId: %s", reservationID));
 		}
-//		HotelDTO hotelDetails = hotelFeign.getHotelDetails(response.get().getHotel_id());
-		HotelDTO hotelDetails = new RestTemplate().getForObject(
-				"http://localhost:8081/hotels/api/v1/hotelDetails/2", HotelDTO.class);
+		HotelDTO hotelDetails = hotelFeign.getHotelDetails(2);
+//		HotelDTO hotelDetails = new RestTemplate().getForObject(
+//				"http://localhost:8081/hotels/api/v1/hotelDetails/2", HotelDTO.class);
 		System.out.println(hotelDetails);
 		return mapper.toReservationDTO(response.get());
 	}

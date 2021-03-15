@@ -19,8 +19,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RequestMapping("/reservations/api/v1")
+@SecurityRequirement(name = "bearerAuth")
 public interface ReservationController {
 
 	@Operation(summary = "Saves reservation details")
