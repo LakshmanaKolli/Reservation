@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties.StubsMode;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.epam.hotel.reservation.dto.HotelDTO;
@@ -29,14 +30,9 @@ public class IntegrationTest {
 	@Autowired
 	HotelFeign hotelFeign;
 	
+	@WithMockUser(username = "username",password = "password")
 	@Test
 	void getHotelDetailsContractTest() throws Exception {
 		this.mockMvc.perform(get("/reservations/api/v1/1")).andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.guest_id", is(0)));
-	}
-	
-	@Test
-	void getHotelDetailsTest() throws Exception{
-		HotelDTO response = hotelFeign.getHotelDetails(2);
-		assertEquals("AMB", response.getName());
 	}
 }
